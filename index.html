@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Sensi Free Fire - Específica e Exata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            cinza: '#E0E0E0',
+                            dourado: '#FFD700',
+                            vermelhoSangue: '#8B0000',
+                            verde: '#39FF14'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-neon {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+            .border-neon {
+                box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-[#39FF14] text-neon text-3xl md:text-4xl font-bold text-center mb-8">
+            GERADOR DE SENSI • VALORES ESPECÍFICOS
+        </h1>
+
+        <div class="bg-gray-800 rounded-lg p-6 mb-8 border-2 border-[#39FF14] border-neon">
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <!-- MARCA DO CELULAR - VOCÊ DIGITA -->
+                <div>
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Marca do Celular</label>
+                    <input type="text" id="marca" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]" placeholder="Ex: Samsung, Xiaomi, Motorola...">
+                </div>
+
+                <!-- MODELO DO CELULAR - VOCÊ DIGITA -->
+                <div>
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Modelo do Celular</label>
+                    <input type="text" id="modelo" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]" placeholder="Ex: A54, Redmi Note 13, iPhone 15...">
+                </div>
+
+                <!-- DPI -->
+                <div>
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Configuração de DPI</label>
+                    <select id="opcaoDpi" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]">
+                        <option value="sem">Sem DPI</option>
+                        <option value="com">Com DPI</option>
+                    </select>
+                </div>
+
+                <div id="campoDpi" class="hidden">
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Valor do DPI</label>
+                    <input type="number" id="valorDpi" min="200" max="1200" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]" placeholder="Ex: 411, 550, 600">
+                </div>
+
+                <!-- INFLUENCIADOR - VOCÊ DIGITA QUALQUER UM -->
+                <div class="md:col-span-2">
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Nome do Influenciador</label>
+                    <input type="text" id="influenciador" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]" placeholder="Ex: Nobru, Two9, Cerol, White444, ou qualquer nome...">
+                </div>
+
+                <!-- MODO DE SENSI COM CORES -->
+                <div>
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Modo de Sensibilidade</label>
+                    <select id="modoSensi" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]">
+                        <option value="padrao">Padrão • Neon Cinza</option>
+                        <option value="incrivel">Incrível • Neon Dourado</option>
+                        <option value="proibida">Proibida • Neon Vermelho Sangue</option>
+                    </select>
+                </div>
+
+                <!-- TIPO DE SENSI COM FAIXAS EXATAS -->
+                <div>
+                    <label class="block text-[#39FF14] text-neon mb-2 font-semibold">Tipo de Sensibilidade</label>
+                    <select id="tipoSensi" class="w-full bg-gray-700 border-2 border-[#39FF14] rounded p-2 text-[#39FF14] text-neon focus:outline-none focus:ring-2 focus:ring-[#39FF14]">
+                        <option value="alta">Alta (150 a 200)</option>
+                        <option value="media">Média (120 a 180)</option>
+                        <option value="baixa">Baixa (100 a 160)</option>
+                        <option value="misturado">Misturado (um pouco de cada)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="gerarBtn" class="w-full mt-6 bg-[#39FF14] text-black font-bold py-3 rounded-lg hover:scale-105 transition-transform text-lg">
+                GERAR SENSI ESPECÍFICA
+            </button>
+        </div>
+
+        <!-- RESULTADO COM CÂMERA AO LADO -->
+        <div id="resultado" class="hidden rounded-lg p-6 border-2 border-neon relative">
+            <i class="fa fa-camera text-3xl absolute -top-3 -right-3 text-neon"></i>
+            
+            <h2 id="tituloResultado" class="text-2xl font-bold mb-4 text-center text-neon"></h2>
+            
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <p class="text-sm opacity-80">Marca / Modelo:</p>
+                    <p id="infoModelo" class="font-semibold"></p>
+                </div>
+                <div>
+                    <p class="text-sm opacity-80">DPI Configurado:</p>
+                    <p id="infoDpi" class="font-semibold"></p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-sm opacity-80">Baseado em:</p>
+                    <p id="infoInfluenciador" class="font-semibold"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">Geral</p>
+                    <p id="sensiGeral" class="text-xl font-bold text-neon"></p>
+                </div>
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">Ponto Vermelho</p>
+                    <p id="sensiVermelho" class="text-xl font-bold text-neon"></p>
+                </div>
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">2x Escopo</p>
+                    <p id="sensi2x" class="text-xl font-bold text-neon"></p>
+                </div>
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">4x Escopo</p>
+                    <p id="sensi4x" class="text-xl font-bold text-neon"></p>
+                </div>
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">Escopo Sniper</p>
+                    <p id="sensiSniper" class="text-xl font-bold text-neon"></p>
+                </div>
+                <div class="p-3 rounded bg-gray-700/50">
+                    <p class="text-sm opacity-80">Visão Livre</p>
+                    <p id="sensiLivre" class="text-xl font-bold text-neon"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // BANCO DE INFLUENCIADORES COM BASES DIFERENTES
+        const baseInfluenciadores = {
+            nobru: { 
+                geral: [160, 190], vermelho: [155, 185], x2: [140, 175], 
+                x4: [130, 170], sniper: [110, 150], livre: [150, 180] 
+            },
+            two9: { 
+                geral: [150, 180], vermelho: [145, 178], x2: [135, 168], 
+                x4: [125, 160], sniper: [105, 145], livre: [140, 170] 
+            },
+            cerol: { 
+                geral: [165, 195], vermelho: [160, 190], x2: [145, 180], 
+                x4: [135, 175], sniper: [115, 155], livre: [155, 185] 
+            },
+            g3ox: { 
+                geral: [170, 200], vermelho: [165, 198], x2: [150, 190], 
+                x4: [140, 185], sniper: [120, 160], livre: [160, 195] 
+            },
+            levelup: { 
+                geral: [155, 185], vermelho: [150, 180], x2: [138, 172], 
+                x4: [128, 165], sniper: [108, 148], livre: [145, 175] 
+            },
+            maestro: { 
+                geral: [162, 192], vermelho: [158, 188], x2: [142, 178], 
+                x4: [132, 172], sniper: [112, 152], livre: [152, 182] 
+            },
+            white444: { 
+                geral: [180, 200], vermelho: [175, 200], x2: [160, 200], 
+                x4: [150, 195], sniper: [130, 170], livre: [170, 200] 
+            },
+            ruok: { 
+                geral: [175, 200], vermelho: [170, 198], x2: [155, 192], 
+                x4: [145, 188], sniper: [125, 165], livre: [165, 198] 
+            }
+        };
+
+        // Função para pegar número ALEATÓRIO DENTRO DA FAIXA e NÃO REPETIDO
+        function getValorEspecifico(min, max, ultimos = []) {
+            let valor;
+            do {
+                valor = Math.floor(Math.random() * (max - min + 1)) + min;
+            } while (ultimos.includes(valor) && max > min); // Garante valores diferentes
+            return valor;
+        }
+
+        // Mostrar/ocultar DPI
+        document.getElementById('opcaoDpi').addEventListener('change', function() {
+            document.getElementById('campoDpi').classList.toggle('hidden', this.value !== 'com');
+        });
+
+        // GERAR SENSI ESPECÍFICA E DIFERENCIADA
+        document.getElementById('gerarBtn').addEventListener('click', function() {
+            // Pegar dados
+            const marca = document.getElementById('marca').value.trim() || 'Genérica';
+            const modelo = document.getElementById('modelo').value.trim() || 'Modelo Padrão';
+            const opcaoDpi = document.getElementById('opcaoDpi').value;
+            const valorDpi = parseInt(document.getElementById('valorDpi').value) || 400;
+            const nomeInfluencer = document.getElementById('influenciador').value.trim() || 'Personalizado';
+            const modo = document.getElementById('modoSensi').value;
+            const tipo = document.getElementById('tipoSensi').value;
+
+            // Definir COR do modo
+            let corClasse, corTexto, titulo;
+            if(modo === 'padrao') {
+                corClasse = 'border-neon-cinza';
+                corTexto = 'text-neon-cinza';
+                titulo = 'SENSIBILIDADE PADRÃO';
+            } else if(modo === 'incrivel') {
+                corClasse = 'border-neon-dourado';
+                corTexto = 'text-neon-dourado';
+                titulo = 'SENSIBILIDADE INCRÍVEL';
+            } else {
+                corClasse = 'border-neon-vermelhoSangue';
+                corTexto = 'text-neon-vermelhoSangue';
+                titulo = 'SENSIBILIDADE PROIBIDA';
+            }
+
+            // Pegar base do influenciador (ou criar nova base única)
+            const chave = nomeInfluencer.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            let base = baseInfluenciadores[chave];
+
+            if(!base) {
+                // Cria base ÚNICA para o nome que você digitou
+                const hash = chave.split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+                const fator = (hash % 20) / 100;
+                base = {
+                    geral:   [150 + Math.floor(30*fator), 200 - Math.floor(10*fator)],
+                    vermelho:[145 + Math.floor(35*fator), 198 - Math.floor(12*fator)],
+                    x2:      [130 + Math.floor(40*fator), 190 - Math.floor(15*fator)],
+                    x4:      [120 + Math.floor(45*fator), 185 - Math.floor(18*fator)],
+                    sniper:  [100 + Math.floor(50*fator), 160 - Math.floor(20*fator)],
+                    livre:   [140 + Math.floor(38*fator), 195 - Math.floor(11*fator)]
+                };
+            }
+
+            // AJUSTAR FAIXAS CONFORME O TIPO QUE VOCÊ ESCOLHEU
+            let faixas = {};
+            if(tipo === 'alta') {
+                // Tudo entre 150 e 200
+                faixas = {
+                    geral: [150, 200], vermelho: [150, 200], x2: [150, 200],
+                    x4: [150, 200], sniper: [150, 200], livre: [150, 200]
+                };
+            } else if(tipo === 'media') {
+                // Tudo entre 120 e 180
+                faixas = {
+                    geral: [120, 180], vermelho: [120, 180], x2: [120, 180],
+                    x4: [120, 180], sniper: [120, 180], livre: [120, 180]
+                };
+            } else if(tipo === 'baixa') {
+                // Tudo entre 100 e 160
+                faixas = {
+                    geral: [100, 160], vermelho: [100, 160], x2: [100, 160],
+                    x4: [100, 160], sniper: [100, 160], livre: [100, 160]
+                };
+            } else if(tipo === 'misturado') {
+                // Cada um em uma faixa diferente (um pouco de cada)
+                faixas = {
+                    geral: [160, 200],    // Alta
+                    vermelho: [130, 170], // Média
+                    x2: [100, 140],       // Baixa
+                    x4: [150, 190],       // Alta
+                    sniper: [110, 150],   // Baixa
+                    livre: [120, 160]     // Média
+                };
+            }
+
+            // Ajuste ESPECIAL por Marca + Modelo + DPI
+            const ajusteMarca = (marca.length % 10) / 100 + 0.92;
+            const ajusteModelo = (modelo.length % 8) / 100 + 0.94;
+            const ajusteDpi = opcaoDpi === 'com' ? (valorDpi / 400) : 1;
+            const multiplicador = ajusteMarca * ajusteModelo * ajusteDpi;
+
+            // GERAR VALORES DIFERENTES, ESPECÍFICOS E DENTRO DAS FAIXAS
+            let valoresUsados = [];
+            const geral    = getValorEspecifico(Math.floor(faixas.geral[0] * multiplicador), Math.floor(faixas.geral[1] * multiplicador), valoresUsados); valoresUsados.push(geral);
+            const vermelho = getValorEspecifico(Math.floor(faixas.vermelho[0] * multiplicador), Math.floor(faixas.vermelho[1] * multiplicador), valoresUsados); valoresUsados.push(vermelho);
+            const x2       = getValorEspecifico(Math.floor(faixas.x2[0] * multiplicador), Math.floor(faixas.x2[1] * multiplicador), valoresUsados); valoresUsados.push(x2);
+            const x4       = getValorEspecifico(Math.floor(faixas.x4[0] * multiplicador), Math.floor(faixas.x4[1] * multiplicador), valoresUsados); valoresUsados.push(x4);
+            const sniper   = getValorEspecifico(Math.floor(faixas.sniper[0] * multiplicador), Math.floor(faixas.sniper[1] * multiplicador), valoresUsados); valoresUsados.push(sniper);
+            const livre    = getValorEspecifico(Math.floor(faixas.livre[0] * multiplicador), Math.floor(faixas.livre[1] * multiplicador), valoresUsados);
+
+            // LIMITAR MÁXIMO EM 200
+            const limitar = (v) => Math.min(200, v);
+            const valores = [limitar(geral), limitar(vermelho), limitar(x2), limitar(x4), limitar(sniper), limitar(livre)];
+
+            // PREENCHER DADOS NA TELA
+            document.getElementById('tituloResultado').textContent = titulo;
+            document.getElementById('infoModelo').textContent = `${marca} ${modelo}`;
+            document.getElementById('infoDpi').textContent = opcaoDpi === 'com' ? `${valorDpi} DPI` : 'Sem alteração';
+            document.getElementById('infoInfluenciador').textContent = nomeInfluencer;
+
+            // APLICAR VALORES E CORES
+            const ids = ['sensiGeral','sensiVermelho','sensi2x','sensi4x','sensiSniper','sensiLivre'];
+            ids.forEach((id, i) => {
+                const el = document.getElementById(id);
+                el.textContent = valores[i];
+                el.className = `text-xl font-bold ${corTexto}`;
+            });
+
+            // ATUALIZAR BORDA E COR DO RESULTADO
+            const resultado = document.getElementById('resultado');
+            resultado.className = `rounded-lg p-6 border-2 border-neon ${corClasse} relative`;
+            
+            // MOSTRAR RESULTADO
+            resultado.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
